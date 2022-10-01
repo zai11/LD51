@@ -19,7 +19,6 @@ class InputController {
         this.debug_pressed = false;
         
         context.input.keyboard.on('keydown', (event) => {
-            console.log(event.keyCode);
             switch(event.keyCode) {
                 case this.W_KEY:
                     this.w_pressed = true;

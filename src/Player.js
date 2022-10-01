@@ -9,6 +9,10 @@ class Player {
         this.spr_player.setScale(2);
     }
 
+    update() {
+        this.spr_player.depth = this.spr_player.y;
+    }
+
     lookForward() {
         this.spr_player.setTexture('player_idle_forward');
     }

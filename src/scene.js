@@ -17,11 +17,13 @@ class Scene extends Phaser.Scene {
         this.load.image('player_idle_left', '../assets/sprites/player/player_idle_left.png');
         this.load.image('player_idle_right', '../assets/sprites/player/player_idle_right.png');
         this.load.image('player_idle_back', '../assets/sprites/player/player_idle_back.png');
+        this.load.image('tree', '../assets/sprites/environment/tree.png');
+        this.load.image('stone', '../assets/sprites/environment/rock_stone.png');
+        this.load.image('iron', '../assets/sprites/environment/rock_iron.png');
         this.inputController = new InputController(this);
     }
 
     create() {
-        console.log(this);
         this.cameras.main.setBounds(0, 0, this.WORLD_BOUNDS, this.WORLD_BOUNDS);
         let background = this.add.image(0, 0, 'background').setOrigin(0);
         this.physics.world.setBounds(0, 0, this.WORLD_BOUNDS, this.WORLD_BOUNDS);
@@ -29,6 +31,7 @@ class Scene extends Phaser.Scene {
         
         let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
         this.player = new Player(this, spr_player);
+        this.environment = new Environment(this);
 
         this.cameras.main.startFollow(this.player.spr_player, true, 1, 1);
     }
@@ -36,6 +39,7 @@ class Scene extends Phaser.Scene {
     update() {
         this.checkPlayerMovement();
         this.checkPlayerRotation();
+        this.player.update();
     }
 
     checkPlayerMovement() {
@@ -55,13 +59,6 @@ class Scene extends Phaser.Scene {
     checkPlayerRotation() {
         let deltaX = this.input.mousePointer.x - this.player.getX() + this.cameras.main.worldView.x;
         let deltaY = this.input.mousePointer.y - this.player.getY() + this.cameras.main.worldView.y;
-        //console.log(this.cameras.main.worldView.x);
-        //let local = this.player.spr_player.getLocalPoint(this.input.mousePointer.x, this.input.mousePointer.y);
-        //console.log(local);
-        console.log("Mouse: " + deltaX + ", " + deltaY);
-        //console.log("Player: " + this.player.getX() + ", " + this.player.getY())
-
-        //console.log(this.player.getX() - this.WORLD_BOUNDS)
 
         if (Math.abs(deltaX) > Math.abs(deltaY) && deltaX < 0)
             this.player.lookLeft();
