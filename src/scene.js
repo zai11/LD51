@@ -20,19 +20,27 @@ class Scene extends Phaser.Scene {
         this.load.image('tree', '../assets/sprites/environment/tree.png');
         this.load.image('stone', '../assets/sprites/environment/rock_stone.png');
         this.load.image('iron', '../assets/sprites/environment/rock_iron.png');
-        this.inputController = new InputController(this);
+        this.load.image('enemy_forward', '../assets/sprites/enemy/enemy_forward.png');
+        this.load.image('enemy_left', '../assets/sprites/enemy/enemy_left.png');
+        this.load.image('enemy_right', '../assets/sprites/enemy/enemy_right.png');
+        this.load.image('enemy_back', '../assets/sprites/enemy/enemy_back.png');
     }
 
     create() {
+        this.inputController = new InputController(this);
+        this.enemyWaveController = new EnemyWaveController(this);
+        this.enemyWaveController.generateWave(5);
+        this.enemyWaveController.generateWave(3);
+        this.environment = new Environment(this);
+
+        let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
+        this.player = new Player(this, spr_player);
+
         this.cameras.main.setBounds(0, 0, this.WORLD_BOUNDS, this.WORLD_BOUNDS);
         let background = this.add.image(0, 0, 'background').setOrigin(0);
         this.physics.world.setBounds(0, 0, this.WORLD_BOUNDS, this.WORLD_BOUNDS);
         background.setScale(4);
         
-        let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
-        this.player = new Player(this, spr_player);
-        this.environment = new Environment(this);
-
         this.cameras.main.startFollow(this.player.spr_player, true, 1, 1);
     }
 
@@ -40,6 +48,7 @@ class Scene extends Phaser.Scene {
         this.checkPlayerMovement();
         this.checkPlayerRotation();
         this.player.update();
+        this.enemyWaveController.update();
     }
 
     checkPlayerMovement() {
