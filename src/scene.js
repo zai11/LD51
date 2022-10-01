@@ -24,6 +24,7 @@ class Scene extends Phaser.Scene {
         this.load.image('enemy_left', '../assets/sprites/enemy/enemy_left.png');
         this.load.image('enemy_right', '../assets/sprites/enemy/enemy_right.png');
         this.load.image('enemy_back', '../assets/sprites/enemy/enemy_back.png');
+        this.load.image('bullet', '../assets/sprites/bullet.png');
     }
 
     create() {
@@ -42,13 +43,19 @@ class Scene extends Phaser.Scene {
         background.setScale(4);
         
         this.cameras.main.startFollow(this.player.spr_player, true, 1, 1);
+
+        this.bullets = [];
     }
 
     update() {
         this.checkPlayerMovement();
         this.checkPlayerRotation();
+        this.checkPlayerShoot();
         this.player.update();
         this.enemyWaveController.update();
+        this.bullets.forEach((bullet) => {
+            bullet.update();
+        });
     }
 
     checkPlayerMovement() {
@@ -77,5 +84,10 @@ class Scene extends Phaser.Scene {
             this.player.lookBack();
         if ((Math.abs(deltaX) < Math.abs(deltaY) && deltaY > 0))
             this.player.lookForward();
+    }
+
+    checkPlayerShoot() {
+        if (this.inputController.space_pressed)
+            this.player.shoot();
     }
 }
