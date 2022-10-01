@@ -1,12 +1,12 @@
 class Enemy {
-    constructor(context, spr_enemy, id) {
+    constructor(context, spr_enemy, waveId, id) {
         this.context = context;
         this.spr_enemy = spr_enemy;
+        this.waveId = waveId;
         this.id = id;
 
         this.spr_enemy.setCollideWorldBounds(true);
         this.spr_enemy.setScale(2);
-        console.log(this.context.physics);
     }
 
     update() {
@@ -46,5 +46,12 @@ class Enemy {
 
     lookRight() {
         this.spr_enemy.setTexture('enemy_right');
+    }
+
+    destroy() {
+        let wave = this.context.enemyWaveController.waves[this.waveId]
+        let index = wave.findIndex((enemy) => enemy.id == this.id && enemy.waveId == this.waveId );
+        wave.splice(index, 1);
+        this.spr_enemy.destroy();
     }
 }

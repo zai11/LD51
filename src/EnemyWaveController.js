@@ -9,12 +9,10 @@ class EnemyWaveController {
         for (let i = 0; i < enemyCount; i++) {
             let pos = this.generateEnemyPos();
             let spr_enemy = this.context.physics.add.sprite(pos.x, pos.y, 'enemy_forward');
-            let enemy = new Enemy(this.context, spr_enemy, wave.length);
-            console.log("Created enemy at: " + pos.x + ", " + pos.y);
+            let enemy = new Enemy(this.context, spr_enemy, this.waves.length, wave.length);
             wave.push(enemy);
         }
         this.waves.push(wave);
-        console.log(this.waves);
     }
 
     generateEnemyPos() {
