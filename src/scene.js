@@ -25,9 +25,20 @@ class Scene extends Phaser.Scene {
         this.load.image('enemy_right', '../assets/sprites/enemy/enemy_right.png');
         this.load.image('enemy_back', '../assets/sprites/enemy/enemy_back.png');
         this.load.image('bullet', '../assets/sprites/bullet.png');
+        this.load.image('ui_heart', '../assets/sprites/ui/heart.png');
+        this.load.image('inventory_gun', '../assets/sprites/ui/inventory/gun_selected.png');
+        this.load.image('inventory_axe', '../assets/sprites/ui/inventory/axe_selected.png');
+        this.load.image('inventory_pick', '../assets/sprites/ui/inventory/pickaxe_selected.png');
+        this.load.image('inventory_wood', '../assets/sprites/ui/inventory/wood_selected.png');
+        this.load.image('inventory_stone', '../assets/sprites/ui/inventory/stone_selected.png');
+        this.load.image('inventory_iron', '../assets/sprites/ui/inventory/iron_selected.png');
     }
 
     create() {
+        this.timer = 10;
+        this.lives = 5;
+        this.selected = InventoryBar.SELECTED_GUN;
+        this.ui = new UI(this);
         this.inputController = new InputController(this);
         this.enemyWaveController = new EnemyWaveController(this);
         this.enemyWaveController.generateWave(5);
@@ -45,12 +56,15 @@ class Scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.spr_player, true, 1, 1);
 
         this.bullets = [];
+        this.timerTick();
     }
 
     update() {
+        this.ui.update();
         this.checkPlayerMovement();
         this.checkPlayerRotation();
         this.checkPlayerShoot();
+        this.checkInventorySelectionChange();
         this.player.update();
         this.enemyWaveController.update();
         this.bullets.forEach((bullet) => {
@@ -59,16 +73,16 @@ class Scene extends Phaser.Scene {
     }
 
     checkPlayerMovement() {
-        if (this.inputController.a_pressed)
+        if (this.inputController.pressed_a)
             this.player.moveLeft();
 
-        if (this.inputController.d_pressed)
+        if (this.inputController.pressed_d)
             this.player.moveRight();
 
-        if (this.inputController.w_pressed)
+        if (this.inputController.pressed_w)
             this.player.moveBack();
         
-        if (this.inputController.s_pressed)
+        if (this.inputController.pressed_s)
             this.player.moveForward();
     }
 
@@ -87,7 +101,31 @@ class Scene extends Phaser.Scene {
     }
 
     checkPlayerShoot() {
-        if (this.inputController.space_pressed)
+        if (this.inputController.pressed_space)
             this.player.shoot();
+    }
+
+    timerTick() {
+        setTimeout(() => {
+            this.timer--;
+            if (this.timer <= 0)
+                this.timer = 10;
+            this.timerTick();
+        }, 1000);
+    }
+
+    checkInventorySelectionChange() {
+        if (this.inputController.pressed_1)
+            this.ui.ui_objects['inventoryBar'].selectGun();
+        else if (this.inputController.pressed_2)
+            this.ui.ui_objects['inventoryBar'].selectAxe();
+        else if (this.inputController.pressed_3)
+            this.ui.ui_objects['inventoryBar'].selectPick();
+        else if (this.inputController.pressed_4)
+            this.ui.ui_objects['inventoryBar'].selectWood();
+        else if (this.inputController.pressed_5)
+            this.ui.ui_objects['inventoryBar'].selectStone();
+        else if (this.inputController.pressed_6)
+            this.ui.ui_objects['inventoryBar'].selectIron();
     }
 }
