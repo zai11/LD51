@@ -32,59 +32,42 @@ class InventoryBar {
         this.iron_count_text.setScrollFactor(0);
         this.iron_count_text.depth = Infinity;
 
+        this.selected = this.SELECTED_GUN;
         this.selectGun();
     }
 
     selectGun() {
+        this.selected = this.SELECTED_GUN;
         this.spr_bar.setTexture('inventory_gun');
     }
 
     selectAxe() {
+        this.selected = this.SELECTED_AXE;
         this.spr_bar.setTexture('inventory_axe');
     }
 
     selectPick() {
+        this.selected = this.SELECTED_PICK;
         this.spr_bar.setTexture('inventory_pick');
     }
 
     selectWood() {
+        this.selected = this.SELECTED_WOOD;
         this.spr_bar.setTexture('inventory_wood');
     }
 
     selectStone() {
+        this.selected = this.SELECTED_STONE;
         this.spr_bar.setTexture('inventory_stone');
     }
 
     selectIron() {
+        this.selected = this.SELECTED_IRON;
         this.spr_bar.setTexture('inventory_iron');
     }
 
     update() {
-        this.checkSelection();
         this.updateItemCounts();
-    }
-
-    checkSelection() {
-        switch(this.selected) {
-            case this.SELECTED_GUN:
-                selectGun();
-                break;
-            case this.SELECTED_AXE:
-                this.selectAxe();
-                break;
-            case this.SELECTED_PICK:
-                this.selectPick();
-                break;
-            case this.SELECTED_WOOD:
-                this.selectWood();
-                break;
-            case this.SELECTED_STONE:
-                this.selectStone();
-                break;
-            case this.SELECTED_IRON:
-                this.selectIron();
-                break;
-        }
     }
 
     updateItemCounts() {

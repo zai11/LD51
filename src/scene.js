@@ -47,6 +47,7 @@ class Scene extends Phaser.Scene {
 
         let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
         this.player = new Player(this, spr_player);
+        this.player.inventory = this.ui.ui_objects['inventoryBar'];
 
         this.cameras.main.setBounds(0, 0, this.WORLD_BOUNDS, this.WORLD_BOUNDS);
         let background = this.add.image(0, 0, 'background').setOrigin(0);
@@ -61,6 +62,10 @@ class Scene extends Phaser.Scene {
 
     update() {
         this.ui.update();
+
+        if (this.game_over)
+            return;
+
         this.checkPlayerMovement();
         this.checkPlayerRotation();
         this.checkPlayerShoot();
@@ -101,7 +106,7 @@ class Scene extends Phaser.Scene {
     }
 
     checkPlayerShoot() {
-        if (this.inputController.pressed_space)
+        if (this.inputController.pressed_space && this.player.inventory.selected === this.player.inventory.SELECTED_GUN)
             this.player.shoot();
     }
 

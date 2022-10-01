@@ -14,10 +14,47 @@ class Player {
         this.spr_player.setScale(2);
         this.lookForward();
         this.reloading = false;
+        this.invincible = false;
     }
 
     update() {
         this.spr_player.depth = this.spr_player.y;
+        this.checkDamage();
+
+        this.checkDeath();
+    }
+
+    checkDamage() {
+        if (this.invincible)
+            return;
+        this.context.enemyWaveController.waves.forEach((wave) => {
+            if (this.invincible)
+                return;
+            wave.forEach((enemy) => {
+                if (this.invincible)
+                    return;
+                this.context.physics.overlap(enemy.spr_enemy, this.spr_player, () => {
+                    this.invincible = true;
+                    this.toggleInvincible();
+                    this.context.lives--;
+                    return;
+                })
+            });
+        });
+    }
+
+    checkDeath() {
+        if (this.context.lives <= 0) {
+            this.context.lives = 0;
+            this.context.game_over = true;
+            this.spr_player.destroy();
+        }
+    }
+
+    toggleInvincible() {
+        setTimeout(() => {
+            this.invincible = false;
+        }, 1000);
     }
 
     reload() {

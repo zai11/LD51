@@ -7,7 +7,7 @@ class UI {
 
         let spr_heart = this.context.add.sprite(100, 100, 'ui_heart');
         spr_heart.setScrollFactor(0);
-        spr_heart.depth = Infinity;
+        spr_heart.depth =  this.context.WORLD_BOUNDS + 1;
         spr_heart.setScale(2);
 
         this.ui_objects['heart'] = spr_heart;
