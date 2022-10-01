@@ -17,8 +17,6 @@ class Environment {
             let spr_tree = context.physics.add.sprite(pos.x, pos.y, 'tree');
             let tree = new Tree(context, this, spr_tree);
             this.trees.push(tree);
-
-            console.log("Created tree at: " + pos.x + ", " + pos.y);
         }
 
 
@@ -28,8 +26,6 @@ class Environment {
             let spr_stone = context.physics.add.sprite(pos.x, pos.y, 'stone');
             let stone = new Stone(context, this, spr_stone);
             this.stones.push(stone);
-            
-            console.log("Created stone at: " + pos.x + ", " + pos.y);
         }
 
         for (let i = 0; i < this.IRON_COUNT; i++) {
@@ -38,8 +34,6 @@ class Environment {
             let spr_iron = context.physics.add.sprite(pos.x, pos.y, 'iron');
             let iron = new Iron(context, this, spr_iron);
             this.irons.push(iron);
-            
-            console.log("Create iron at: " + pos.x + ", " + pos.y);
         }
 
         this.trees.forEach((tree) => {
