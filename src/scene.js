@@ -48,6 +48,10 @@ class Scene extends Phaser.Scene {
         this.load.image('wood_wall_error', '../assets/sprites/walls/wood_wall_error.png');
         this.load.image('stone_wall_error', '../assets/sprites/walls/stone_wall_error.png');
         this.load.image('metal_wall_error', '../assets/sprites/walls/metal_wall_error.png');
+
+        this.load.audio('music', '../assets/audio/music.mp3');
+        this.load.audio('death_sound', '../assets/audio/death_sound.m4a');
+        this.load.audio('gun_sound', '../assets/audio/gun_sound.m4a');
     }
 
     create() {
@@ -76,6 +80,10 @@ class Scene extends Phaser.Scene {
         this.bullets = [];
         this.walls = [];
         this.timerTick();
+
+        console.log(this.add)
+
+        let music = this.sound.play('music', {volume: 0.5});
     }
 
     update() {

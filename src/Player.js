@@ -48,6 +48,7 @@ class Player {
         if (this.context.lives <= 0) {
             this.context.lives = 0;
             this.context.game_over = true;
+            this.context.sound.play('death_sound');
             this.spr_player.destroy();
         }
     }
@@ -67,6 +68,8 @@ class Player {
     shoot() {
         if (this.reloading)
             return;
+        
+        this.context.sound.play('gun_sound', {volume: 4});
 
         let x = 0;
         let y = 0;

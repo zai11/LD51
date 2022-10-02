@@ -59,6 +59,7 @@ class Enemy {
     }
 
     destroy() {
+        this.context.sound.play('death_sound');
         let wave = this.context.enemyWaveController.waves[this.waveId]
         let index = wave.findIndex((enemy) => enemy.id == this.id && enemy.waveId == this.waveId );
         wave.splice(index, 1);
