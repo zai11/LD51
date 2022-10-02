@@ -11,7 +11,6 @@ class Enemy {
         this.context.walls.forEach((wall) => {
             this.context.physics.add.collider(wall.sprite, this.spr_enemy, (wall) => {
                 if (!wall.parent_object.hit) {
-                    console.log(wall);
                     wall.parent_object.hit = true;
                     wall.parent_object.health--;
                     wall.parent_object.resetHit();
@@ -60,6 +59,7 @@ class Enemy {
     }
 
     destroy() {
+        this.context.sound.play('death_sound');
         let wave = this.context.enemyWaveController.waves[this.waveId]
         let index = wave.findIndex((enemy) => enemy.id == this.id && enemy.waveId == this.waveId );
         wave.splice(index, 1);
