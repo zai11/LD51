@@ -103,6 +103,8 @@ class Player {
 
     chopTree(tree) {
         if (this.can_use_action) {
+            this.stopVerticalMovement();
+            this.stopHorizontalMovement();
             this.can_use_action = false;
             setTimeout(() => {
                 this.can_use_action = true;
@@ -114,6 +116,8 @@ class Player {
 
     chopStone(stone) {
         if (this.can_use_action) {
+            this.stopVerticalMovement();
+            this.stopHorizontalMovement();
             this.can_use_action = false;
             setTimeout(() => {
                 this.can_use_action = true;
@@ -125,6 +129,8 @@ class Player {
 
     chopIron(iron) {
         if (this.can_use_action) {
+            this.stopVerticalMovement();
+            this.stopHorizontalMovement();
             this.can_use_action = false;
             setTimeout(() => {
                 this.can_use_action = true;

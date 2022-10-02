@@ -58,14 +58,13 @@ class Scene extends Phaser.Scene {
         this.inputController = new InputController(this);
         this.enemyWaveController = new EnemyWaveController(this);
 
-        this.enemyWaveController.generateWave(5);
-        this.enemyWaveController.generateWave(3);
+        this.enemyWaveController.run();
+
         this.environment = new Environment(this);
 
         let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
         this.player = new Player(this, spr_player);
         this.player.inventory = this.ui.ui_objects['inventoryBar'];
-        this.player.inventory.wood_count = 50;
 
         this.cameras.main.setBounds(0, 0, this.WORLD_BOUNDS, this.WORLD_BOUNDS);
         let background = this.add.image(0, 0, 'background').setOrigin(0);
