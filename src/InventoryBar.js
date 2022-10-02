@@ -12,7 +12,7 @@ class InventoryBar {
         this.context = context;
         this.parent_ui = parent_ui;
         
-        this.spr_bar = this.context.add.sprite(800, 900).setOrigin(0.5);
+        this.spr_bar = this.context.add.sprite(533, 567).setOrigin(0.5);
         this.spr_bar.setScrollFactor(0);
         this.spr_bar.depth = Infinity;
         this.spr_bar.setScale(2);
@@ -21,15 +21,15 @@ class InventoryBar {
         this.stone_count = 0;
         this.iron_count = 0;
 
-        this.wood_count_text = this.context.add.text(832, 955, this.wood_count, {fontSize: '32px', fill: '#000'}).setOrigin(0.5);
+        this.wood_count_text = this.context.add.text(565, 622, this.wood_count, {fontSize: '32px', fill: '#000'}).setOrigin(0.5);
         this.wood_count_text.setScrollFactor(0);
         this.wood_count_text.depth = Infinity;
 
-        this.stone_count_text = this.context.add.text(902, 955, this.stone_count, {fontSize: '32px', fill: '#000'}).setOrigin(0.5);
+        this.stone_count_text = this.context.add.text(635, 622, this.stone_count, {fontSize: '32px', fill: '#000'}).setOrigin(0.5);
         this.stone_count_text.setScrollFactor(0);
         this.stone_count_text.depth = Infinity;
 
-        this.iron_count_text = this.context.add.text(972, 955, this.iron_count, {fontSize: '32px', fill: '#000'}).setOrigin(0.5);
+        this.iron_count_text = this.context.add.text(705, 622, this.iron_count, {fontSize: '32px', fill: '#000'}).setOrigin(0.5);
         this.iron_count_text.setScrollFactor(0);
         this.iron_count_text.depth = Infinity;
 

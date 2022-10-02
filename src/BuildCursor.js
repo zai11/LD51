@@ -57,6 +57,26 @@ class BuildCursor {
             if (Phaser.Geom.Intersects.RectangleToRectangle(cursor_bounds, tree_bounds))
                 this.overlap = true;
         });
+        this.context.environment.stones.forEach((stone) => {
+            let stone_bounds = stone.sprite.getBounds();
+            if (Phaser.Geom.Intersects.RectangleToRectangle(cursor_bounds, stone_bounds))
+                this.overlap = true;
+        });
+        this.context.environment.irons.forEach((iron) => {
+            let iron_bounds = iron.sprite.getBounds();
+            if (Phaser.Geom.Intersects.RectangleToRectangle(cursor_bounds, iron_bounds))
+                this.overlap = true;
+        });
+        let player_bounds = this.context.player.spr_player.getBounds();
+        if (Phaser.Geom.Intersects.RectangleToRectangle(cursor_bounds, player_bounds))
+            this.overlap = true;
+        this.context.enemyWaveController.waves.forEach((wave) => {
+            wave.forEach(enemy => {
+                let enemy_bounds = enemy.spr_enemy.getBounds();
+                if (Phaser.Geom.Intersects.RectangleToRectangle(cursor_bounds, enemy_bounds))
+                    this.overlap = true;
+            });
+        });
 
         switch (this.texture_string) {
             case 'wood_wall':
