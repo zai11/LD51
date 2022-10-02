@@ -15,6 +15,7 @@ class Player {
         this.lookForward();
         this.reloading = false;
         this.invincible = false;
+        this.can_use_action = true;
     }
 
     update() {
@@ -98,6 +99,39 @@ class Player {
         this.context.bullets.push(bullet);
         this.reloading = true;
         this.reload();
+    }
+
+    chopTree(tree) {
+        if (this.can_use_action) {
+            this.can_use_action = false;
+            setTimeout(() => {
+                this.can_use_action = true;
+                this.inventory.wood_count += 5;
+                tree.chop();
+            }, 1000);
+        }
+    }
+
+    chopStone(stone) {
+        if (this.can_use_action) {
+            this.can_use_action = false;
+            setTimeout(() => {
+                this.can_use_action = true;
+                this.inventory.stone_count += 2;
+                stone.chop();
+            }, 1500);
+        }
+    }
+
+    chopIron(iron) {
+        if (this.can_use_action) {
+            this.can_use_action = false;
+            setTimeout(() => {
+                this.can_use_action = true;
+                this.inventory.iron_count += 1;
+                iron.chop();
+            }, 2500);
+        }
     }
 
     lookForward() {

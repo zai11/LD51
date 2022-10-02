@@ -27,14 +27,44 @@ class UI {
         this.ui_objects['timer'] = wave_timer;
 
         let inventoryBar = new InventoryBar(this.context);
-        inventoryBar.wood_count = 5;
-        inventoryBar.stone_count = 15;
         this.ui_objects['inventoryBar'] = inventoryBar;
+
+        this.pointer = null;
+    }
+
+    createAxePointer(x, y) {
+        this.clearPointer();
+        this.pointer = this.context.add.sprite(x, y - 106, 'axe_pointer');
+        this.pointer.depth = Infinity;
+        this.pointer.setScale(1.5);
+    }
+
+    createPickPointer(x, y) {
+        this.clearPointer();
+        this.pointer = this.context.add.sprite(x, y - 60, 'pick_pointer');
+        this.pointer.depth = Infinity;
+        this.pointer.setScale(1.5);
+    }
+
+    clearPointer() {
+        if (this.pointer != null) {
+            this.pointer.destroy();
+            this.pointer = null;
+        }
+    }
+
+    createProgressBar(x, y, timer) {
+        this.progressBar = new ProgressBar(this.context, x, y, timer);
     }
 
     update() {
         this.ui_objects['timer'].setText(this.context.timer);
         this.ui_objects['heart_text'].setText(this.context.lives);
         this.ui_objects['inventoryBar'].update();
+        if (this.progressBar != null) {
+            this.progressBar.update();
+            if (this.progressBar.done)
+                this.progressBar.destroy();
+        }
     }
 }

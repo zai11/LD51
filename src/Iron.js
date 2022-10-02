@@ -1,10 +1,30 @@
 class Iron {
-    constructor(context, environment, spr_iron) {
+    constructor(context, environment, sprite) {
         this.context = context;
         this.environment = environment;
-        this.spr_iron = spr_iron;
+        this.sprite = sprite;
 
-        spr_iron.setScale(3);
-        spr_iron.depth = spr_iron.y - 40;
+        sprite.setScale(3);
+        sprite.depth = sprite.y - 40;
+        this.selected = false;
+        this.isIron = true;
+    }
+
+    setSelected(selected = true) {
+        if (this.chopped)
+            return;
+        this.selected = selected;
+        if (this.selected)
+            this.sprite.setTexture('iron_selected');
+        else
+            this.sprite.setTexture('iron');
+    }
+
+    chop(chopped = true) {
+        this.chopped = chopped;
+        if (this.chopped)
+            this.sprite.setTexture('iron_chopped');
+        else 
+            this.setSelected(this.selected);
     }
 }

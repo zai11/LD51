@@ -1,10 +1,30 @@
 class Stone {
-    constructor(context, environment, spr_stone) {
+    constructor(context, environment, sprite) {
         this.context = context;
         this.environment = environment;
-        this.spr_stone = spr_stone;
+        this.sprite = sprite;
 
-        spr_stone.setScale(3);
-        spr_stone.depth = spr_stone.y - 40;
+        sprite.setScale(3);
+        sprite.depth = sprite.y - 40;
+        this.selected = false;
+        this.isStone = true;
+    }
+
+    setSelected(selected = true) {
+        if (this.chopped)
+            return;
+        this.selected = selected;
+        if (this.selected)
+            this.sprite.setTexture('stone_selected');
+        else
+            this.sprite.setTexture('stone');
+    }
+
+    chop(chopped = true) {
+        this.chopped = chopped;
+        if (this.chopped)
+            this.sprite.setTexture('stone_chopped');
+        else 
+            this.setSelected(this.selected);
     }
 }
