@@ -7,6 +7,17 @@ class Enemy {
 
         this.spr_enemy.setCollideWorldBounds(true);
         this.spr_enemy.setScale(2);
+
+        this.context.walls.forEach((wall) => {
+            this.context.physics.add.collider(wall.sprite, this.spr_enemy, (wall) => {
+                if (!wall.parent_object.hit) {
+                    console.log(wall);
+                    wall.parent_object.hit = true;
+                    wall.parent_object.health--;
+                    wall.parent_object.resetHit();
+                }
+            });
+        });
     }
 
     update() {

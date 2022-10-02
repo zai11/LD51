@@ -3,6 +3,7 @@ class Wall {
         this.context = context;
         this.health = health;
         this.sprite = sprite;
+        this.sprite.parent_object = this;
         this.id = id;
         this.hit = false;
         this.context.physics.add.collider(this.context.player.spr_player, this.sprite);
@@ -26,7 +27,7 @@ class Wall {
             this.destroy();
     }
 
-    resetHit() {
+    resetHit = () => {
         setTimeout(() => {
             this.hit = false;
         }, 2000);
