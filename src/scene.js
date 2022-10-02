@@ -42,6 +42,12 @@ class Scene extends Phaser.Scene {
         this.load.image('pick_pointer', '../assets/sprites/ui/pickaxe_pointer.png')
         this.load.image('progress_bar_border', '../assets/sprites/ui/progress_bar_border.png');
         this.load.image('progress_bar_bg', '../assets/sprites/ui/progress_bar_bg.png');
+        this.load.image('wood_wall', '../assets/sprites/walls/wood_wall.png');
+        this.load.image('stone_wall', '../assets/sprites/walls/stone_wall.png');
+        this.load.image('metal_wall', '../assets/sprites/walls/metal_wall.png');
+        this.load.image('wood_wall_error', '../assets/sprites/walls/wood_wall_error.png');
+        this.load.image('stone_wall_error', '../assets/sprites/walls/stone_wall_error.png');
+        this.load.image('metal_wall_error', '../assets/sprites/walls/metal_wall_error.png');
     }
 
     create() {
@@ -51,8 +57,9 @@ class Scene extends Phaser.Scene {
         this.ui = new UI(this);
         this.inputController = new InputController(this);
         this.enemyWaveController = new EnemyWaveController(this);
-        //this.enemyWaveController.generateWave(5);
-        //this.enemyWaveController.generateWave(3);
+
+        this.enemyWaveController.run();
+
         this.environment = new Environment(this);
 
         let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
@@ -67,6 +74,7 @@ class Scene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.spr_player, true, 1, 1);
 
         this.bullets = [];
+        this.walls = [];
         this.timerTick();
     }
 
@@ -80,11 +88,15 @@ class Scene extends Phaser.Scene {
         this.checkPlayerRotation();
         this.checkPlayerShoot();
         this.checkInventorySelectionChange();
+        this.checkWallPlacement();
         this.player.update();
         this.enemyWaveController.update();
         this.environment.update();
         this.bullets.forEach((bullet) => {
             bullet.update();
+        });
+        this.walls.forEach((wall) => {
+            wall.update();
         });
     }
 
@@ -92,17 +104,28 @@ class Scene extends Phaser.Scene {
         if (!this.player.can_use_action)
             return;
 
-        if (this.inputController.pressed_a)
-            this.player.moveLeft();
 
-        if (this.inputController.pressed_d)
-            this.player.moveRight();
+        if (this.inputController.pressed_a || this.inputController.pressed_d) {
+            if (this.inputController.pressed_a)
+                this.player.moveLeft();
 
-        if (this.inputController.pressed_w)
-            this.player.moveBack();
-        
-        if (this.inputController.pressed_s)
-            this.player.moveForward();
+            if (this.inputController.pressed_d)
+                this.player.moveRight();
+        }
+        else {
+            this.player.stopHorizontalMovement();
+        }
+
+        if (this.inputController.pressed_w || this.inputController.pressed_s) {
+            if (this.inputController.pressed_w)
+                this.player.moveBack();
+    
+            if (this.inputController.pressed_s)
+                this.player.moveForward();
+        }
+        else {
+            this.player.stopVerticalMovement();
+        }
     }
 
     checkPlayerRotation() {
@@ -147,5 +170,67 @@ class Scene extends Phaser.Scene {
             this.ui.ui_objects['inventoryBar'].selectStone();
         else if (this.inputController.pressed_6)
             this.ui.ui_objects['inventoryBar'].selectIron();
+    }
+
+    checkWallPlacement() {
+        if (this.justPlaced)
+            return;
+        this.checkWoodWallPlacement();
+        this.checkStoneWallPlacement();
+        this.checkMetalWallPlacement();
+    }
+
+    checkWoodWallPlacement() {
+        if (this.inputController.clicked && this.player.inventory.selected === this.player.inventory.SELECTED_WOOD && !this.ui.build_cursor.overlap) {
+            this.placeWoodWall(this.input.mousePointer.x + this.cameras.main.worldView.x, this.input.mousePointer.y + this.cameras.main.worldView.y);
+            this.justPlaced = true;
+            this.resetJustPlaced();
+        }
+    }
+
+    placeWoodWall(x, y) {
+        if (this.player.inventory.wood_count <= 0)
+            return;
+        let wall = new WoodWall(this, x, y, this.walls.length);
+        this.walls.push(wall);
+        this.player.inventory.wood_count--;
+    }
+
+    checkStoneWallPlacement() {
+        if (this.inputController.clicked && this.player.inventory.selected === this.player.inventory.SELECTED_STONE && !this.ui.build_cursor.overlap) {
+            this.placeStoneWall(this.input.mousePointer.x + this.cameras.main.worldView.x, this.input.mousePointer.y + this.cameras.main.worldView.y);
+            this.justPlaced = true;
+            this.resetJustPlaced();
+        }
+    }
+
+    placeStoneWall(x, y) {
+        if (this.player.inventory.stone_count <= 0)
+            return;
+        let wall = new StoneWall(this, x, y);
+        this.walls.push(wall);
+        this.player.inventory.stone_count--;
+    }
+
+    checkMetalWallPlacement() {
+        if (this.inputController.clicked && this.player.inventory.selected === this.player.inventory.SELECTED_IRON && !this.ui.build_cursor.overlap) {
+            this.placeMetalWall(this.input.mousePointer.x + this.cameras.main.worldView.x, this.input.mousePointer.y + this.cameras.main.worldView.y);
+            this.justPlaced = true;
+            this.resetJustPlaced();
+        }
+    }
+
+    placeMetalWall(x, y) {
+        if (this.player.inventory.iron_count <= 0)
+            return;
+        let wall = new MetalWall(this, x, y);
+        this.walls.push(wall);
+        this.player.inventory.iron_count--;
+    }
+
+    resetJustPlaced() {
+        setTimeout(() => {
+            this.justPlaced = false;
+        }, 300);
     }
 }

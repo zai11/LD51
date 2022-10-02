@@ -2,6 +2,16 @@ class EnemyWaveController {
     constructor(context) {
         this.context = context;
         this.waves = [];
+        this.difficulty = 0;
+    }
+
+    run() {
+        this.generateWave(this.difficulty / 2);
+        this.difficulty += 2;
+            setTimeout(() => {
+                if (this.context.lives > 0)
+                    this.run(); 
+            }, 10000);
     }
 
     generateWave(enemyCount) {
