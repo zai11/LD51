@@ -8,8 +8,9 @@ class InventoryBar {
     SELECTED_STONE = 5;
     SELECTED_IRON = 6;
 
-    constructor(context) {
+    constructor(context, parent_ui) {
         this.context = context;
+        this.parent_ui = parent_ui;
         
         this.spr_bar = this.context.add.sprite(800, 900).setOrigin(0.5);
         this.spr_bar.setScrollFactor(0);
@@ -39,31 +40,37 @@ class InventoryBar {
     selectGun() {
         this.selected = this.SELECTED_GUN;
         this.spr_bar.setTexture('inventory_gun');
+        this.parent_ui.clearBuildCursor();
     }
 
     selectAxe() {
         this.selected = this.SELECTED_AXE;
         this.spr_bar.setTexture('inventory_axe');
+        this.parent_ui.clearBuildCursor();
     }
 
     selectPick() {
         this.selected = this.SELECTED_PICK;
         this.spr_bar.setTexture('inventory_pick');
+        this.parent_ui.clearBuildCursor();
     }
 
     selectWood() {
         this.selected = this.SELECTED_WOOD;
         this.spr_bar.setTexture('inventory_wood');
+        this.context.ui.createBuildCursor('wood');
     }
 
     selectStone() {
         this.selected = this.SELECTED_STONE;
         this.spr_bar.setTexture('inventory_stone');
+        this.context.ui.createBuildCursor('stone');
     }
 
     selectIron() {
         this.selected = this.SELECTED_IRON;
         this.spr_bar.setTexture('inventory_iron');
+        this.context.ui.createBuildCursor('metal');
     }
 
     update() {

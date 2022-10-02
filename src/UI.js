@@ -26,7 +26,7 @@ class UI {
 
         this.ui_objects['timer'] = wave_timer;
 
-        let inventoryBar = new InventoryBar(this.context);
+        let inventoryBar = new InventoryBar(this.context, this);
         this.ui_objects['inventoryBar'] = inventoryBar;
 
         this.pointer = null;
@@ -57,6 +57,30 @@ class UI {
         this.progressBar = new ProgressBar(this.context, x, y, timer);
     }
 
+    createBuildCursor(material) {
+        this.clearBuildCursor();
+        this.build_cursor = new BuildCursor(this.context);
+
+        switch(material) {
+            case "wood":
+                this.build_cursor.setWood();
+                break;
+            case "stone":
+                this.build_cursor.setStone();
+                break;
+            case "metal":
+                this.build_cursor.setMetal();
+                break;
+        }
+    }
+
+    clearBuildCursor() {
+        if (this.build_cursor != null) {
+            this.build_cursor.destroy();
+            this.build_cursor = null;
+        }
+    }
+
     update() {
         this.ui_objects['timer'].setText(this.context.timer);
         this.ui_objects['heart_text'].setText(this.context.lives);
@@ -65,6 +89,10 @@ class UI {
             this.progressBar.update();
             if (this.progressBar.done)
                 this.progressBar.destroy();
+        }
+
+        if (this.build_cursor != null) {
+            this.build_cursor.update();
         }
     }
 }

@@ -1,6 +1,6 @@
 class Player {
 
-    VELOCITY = 5;
+    VELOCITY = 200;
 
     DIRECTION_FORWARD = 0;
     DIRECTION_LEFT = 1;
@@ -155,19 +155,27 @@ class Player {
     }
 
     moveForward() {
-        this.spr_player.y += 5;
+        this.spr_player.setVelocityY(this.VELOCITY);
     }
 
     moveBack() {
-        this.spr_player.y -= 5;
+        this.spr_player.setVelocityY(-this.VELOCITY);
     }
 
     moveLeft() {
-        this.spr_player.x -= 5;
+        this.spr_player.setVelocityX(-this.VELOCITY);
     }
 
     moveRight() {
-        this.spr_player.x += 5;
+        this.spr_player.setVelocityX(this.VELOCITY);
+    }
+
+    stopHorizontalMovement() {
+        this.spr_player.setVelocityX(0);
+    }
+
+    stopVerticalMovement() {
+        this.spr_player.setVelocityY(0);
     }
 
     getX() {

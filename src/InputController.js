@@ -111,5 +111,13 @@ class InputController {
                     break;
             }
         });
+
+        context.input.on('pointerdown', (event) => {
+            this.clicked = true;
+        });
+
+        context.input.on('pointerup', (event) => {
+            this.clicked = false;
+        });
     }
 }

@@ -1,6 +1,6 @@
 class Environment {
     
-    TREE_COUNT = 15;
+    TREE_COUNT = 2;
     STONE_COUNT = 10;
     IRON_COUNT = 5;
 
