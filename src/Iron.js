@@ -22,9 +22,17 @@ class Iron {
 
     chop(chopped = true) {
         this.chopped = chopped;
-        if (this.chopped)
+        if (this.chopped) {
             this.sprite.setTexture('iron_chopped');
+            this.startRegrowth();
+        }
         else 
             this.setSelected(this.selected);
+    }
+
+    startRegrowth() {
+        setTimeout(() => {
+            this.chop(false);
+        }, 20000);
     }
 }
