@@ -12,46 +12,46 @@ class Scene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('background', '../assets/sprites/background.png');
-        this.load.image('player_idle_forward', '../assets/sprites/player/player_idle_forward.png');
-        this.load.image('player_idle_left', '../assets/sprites/player/player_idle_left.png');
-        this.load.image('player_idle_right', '../assets/sprites/player/player_idle_right.png');
-        this.load.image('player_idle_back', '../assets/sprites/player/player_idle_back.png');
-        this.load.image('tree', '../assets/sprites/environment/tree.png');
-        this.load.image('tree_selected', '../assets/sprites/environment/tree_selected.png');
-        this.load.image('tree_chopped', '../assets/sprites/environment/tree_chopped.png');
-        this.load.image('stone', '../assets/sprites/environment/rock_stone.png');
-        this.load.image('stone_selected', '../assets/sprites/environment/rock_stone_selected.png');
-        this.load.image('stone_chopped', '../assets/sprites/environment/rock_stone_chopped.png');
-        this.load.image('iron', '../assets/sprites/environment/rock_iron.png');
-        this.load.image('iron_selected', '../assets/sprites/environment/rock_iron_selected.png');
-        this.load.image('iron_chopped', '../assets/sprites/environment/rock_iron_chopped.png');
-        this.load.image('enemy_forward', '../assets/sprites/enemy/enemy_forward.png');
-        this.load.image('enemy_left', '../assets/sprites/enemy/enemy_left.png');
-        this.load.image('enemy_right', '../assets/sprites/enemy/enemy_right.png');
-        this.load.image('enemy_back', '../assets/sprites/enemy/enemy_back.png');
-        this.load.image('bullet', '../assets/sprites/bullet.png');
-        this.load.image('ui_heart', '../assets/sprites/ui/heart.png');
-        this.load.image('inventory_gun', '../assets/sprites/ui/inventory/gun_selected.png');
-        this.load.image('inventory_axe', '../assets/sprites/ui/inventory/axe_selected.png');
-        this.load.image('inventory_pick', '../assets/sprites/ui/inventory/pickaxe_selected.png');
-        this.load.image('inventory_wood', '../assets/sprites/ui/inventory/wood_selected.png');
-        this.load.image('inventory_stone', '../assets/sprites/ui/inventory/stone_selected.png');
-        this.load.image('inventory_iron', '../assets/sprites/ui/inventory/iron_selected.png');
-        this.load.image('axe_pointer', '../assets/sprites/ui/axe_pointer.png');
-        this.load.image('pick_pointer', '../assets/sprites/ui/pickaxe_pointer.png')
-        this.load.image('progress_bar_border', '../assets/sprites/ui/progress_bar_border.png');
-        this.load.image('progress_bar_bg', '../assets/sprites/ui/progress_bar_bg.png');
-        this.load.image('wood_wall', '../assets/sprites/walls/wood_wall.png');
-        this.load.image('stone_wall', '../assets/sprites/walls/stone_wall.png');
-        this.load.image('metal_wall', '../assets/sprites/walls/metal_wall.png');
-        this.load.image('wood_wall_error', '../assets/sprites/walls/wood_wall_error.png');
-        this.load.image('stone_wall_error', '../assets/sprites/walls/stone_wall_error.png');
-        this.load.image('metal_wall_error', '../assets/sprites/walls/metal_wall_error.png');
+        this.load.image('background', './assets/sprites/background.png');
+        this.load.image('player_idle_forward', './assets/sprites/player/player_idle_forward.png');
+        this.load.image('player_idle_left', './assets/sprites/player/player_idle_left.png');
+        this.load.image('player_idle_right', './assets/sprites/player/player_idle_right.png');
+        this.load.image('player_idle_back', './assets/sprites/player/player_idle_back.png');
+        this.load.image('tree', './assets/sprites/environment/tree.png');
+        this.load.image('tree_selected', './assets/sprites/environment/tree_selected.png');
+        this.load.image('tree_chopped', './assets/sprites/environment/tree_chopped.png');
+        this.load.image('stone', './assets/sprites/environment/rock_stone.png');
+        this.load.image('stone_selected', './assets/sprites/environment/rock_stone_selected.png');
+        this.load.image('stone_chopped', './assets/sprites/environment/rock_stone_chopped.png');
+        this.load.image('iron', './assets/sprites/environment/rock_iron.png');
+        this.load.image('iron_selected', './assets/sprites/environment/rock_iron_selected.png');
+        this.load.image('iron_chopped', './assets/sprites/environment/rock_iron_chopped.png');
+        this.load.image('enemy_forward', './assets/sprites/enemy/enemy_forward.png');
+        this.load.image('enemy_left', './assets/sprites/enemy/enemy_left.png');
+        this.load.image('enemy_right', './assets/sprites/enemy/enemy_right.png');
+        this.load.image('enemy_back', './assets/sprites/enemy/enemy_back.png');
+        this.load.image('bullet', './assets/sprites/bullet.png');
+        this.load.image('ui_heart', './assets/sprites/ui/heart.png');
+        this.load.image('inventory_gun', './assets/sprites/ui/inventory/gun_selected.png');
+        this.load.image('inventory_axe', './assets/sprites/ui/inventory/axe_selected.png');
+        this.load.image('inventory_pick', './assets/sprites/ui/inventory/pickaxe_selected.png');
+        this.load.image('inventory_wood', './assets/sprites/ui/inventory/wood_selected.png');
+        this.load.image('inventory_stone', './assets/sprites/ui/inventory/stone_selected.png');
+        this.load.image('inventory_iron', './assets/sprites/ui/inventory/iron_selected.png');
+        this.load.image('axe_pointer', './assets/sprites/ui/axe_pointer.png');
+        this.load.image('pick_pointer', './assets/sprites/ui/pickaxe_pointer.png')
+        this.load.image('progress_bar_border', './assets/sprites/ui/progress_bar_border.png');
+        this.load.image('progress_bar_bg', './assets/sprites/ui/progress_bar_bg.png');
+        this.load.image('wood_wall', './assets/sprites/walls/wood_wall.png');
+        this.load.image('stone_wall', './assets/sprites/walls/stone_wall.png');
+        this.load.image('metal_wall', './assets/sprites/walls/metal_wall.png');
+        this.load.image('wood_wall_error', './assets/sprites/walls/wood_wall_error.png');
+        this.load.image('stone_wall_error', './assets/sprites/walls/stone_wall_error.png');
+        this.load.image('metal_wall_error', './assets/sprites/walls/metal_wall_error.png');
 
-        this.load.audio('music', '../assets/audio/music.mp3');
-        this.load.audio('death_sound', '../assets/audio/death_sound.m4a');
-        this.load.audio('gun_sound', '../assets/audio/gun_sound.m4a');
+        this.load.audio('music', './assets/audio/music.mp3');
+        this.load.audio('death_sound', './assets/audio/death_sound.m4a');
+        this.load.audio('gun_sound', './assets/audio/gun_sound.m4a');
     }
 
     create() {
@@ -81,9 +81,7 @@ class Scene extends Phaser.Scene {
         this.walls = [];
         this.timerTick();
 
-        console.log(this.add)
-
-        let music = this.sound.play('music', {volume: 0.5});
+        let music = this.sound.play('music', {volume: 0.5, loop: true});
     }
 
     update() {

@@ -1,14 +1,12 @@
 var config = {
     type: Phaser.AUTO,
-    width: 1600,
-    height: 1000,
+    width: 1067,
+    height: 667,
     physics: {
         default: 'arcade',
         arcade: {
             gravity: { y: 0 },
-            debug: true,
-            debugShowBody: true,
-            debugShowStaticBody: true,
+            debug: false
         }
     },
     pixelArt: true,
