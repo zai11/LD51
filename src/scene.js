@@ -18,8 +18,14 @@ class Scene extends Phaser.Scene {
         this.load.image('player_idle_right', '../assets/sprites/player/player_idle_right.png');
         this.load.image('player_idle_back', '../assets/sprites/player/player_idle_back.png');
         this.load.image('tree', '../assets/sprites/environment/tree.png');
+        this.load.image('tree_selected', '../assets/sprites/environment/tree_selected.png');
+        this.load.image('tree_chopped', '../assets/sprites/environment/tree_chopped.png');
         this.load.image('stone', '../assets/sprites/environment/rock_stone.png');
+        this.load.image('stone_selected', '../assets/sprites/environment/rock_stone_selected.png');
+        this.load.image('stone_chopped', '../assets/sprites/environment/rock_stone_chopped.png');
         this.load.image('iron', '../assets/sprites/environment/rock_iron.png');
+        this.load.image('iron_selected', '../assets/sprites/environment/rock_iron_selected.png');
+        this.load.image('iron_chopped', '../assets/sprites/environment/rock_iron_chopped.png');
         this.load.image('enemy_forward', '../assets/sprites/enemy/enemy_forward.png');
         this.load.image('enemy_left', '../assets/sprites/enemy/enemy_left.png');
         this.load.image('enemy_right', '../assets/sprites/enemy/enemy_right.png');
@@ -32,6 +38,10 @@ class Scene extends Phaser.Scene {
         this.load.image('inventory_wood', '../assets/sprites/ui/inventory/wood_selected.png');
         this.load.image('inventory_stone', '../assets/sprites/ui/inventory/stone_selected.png');
         this.load.image('inventory_iron', '../assets/sprites/ui/inventory/iron_selected.png');
+        this.load.image('axe_pointer', '../assets/sprites/ui/axe_pointer.png');
+        this.load.image('pick_pointer', '../assets/sprites/ui/pickaxe_pointer.png')
+        this.load.image('progress_bar_border', '../assets/sprites/ui/progress_bar_border.png');
+        this.load.image('progress_bar_bg', '../assets/sprites/ui/progress_bar_bg.png');
     }
 
     create() {
@@ -41,8 +51,8 @@ class Scene extends Phaser.Scene {
         this.ui = new UI(this);
         this.inputController = new InputController(this);
         this.enemyWaveController = new EnemyWaveController(this);
-        this.enemyWaveController.generateWave(5);
-        this.enemyWaveController.generateWave(3);
+        //this.enemyWaveController.generateWave(5);
+        //this.enemyWaveController.generateWave(3);
         this.environment = new Environment(this);
 
         let spr_player = this.physics.add.sprite(500, 500, 'player_idle_forward');
@@ -72,12 +82,16 @@ class Scene extends Phaser.Scene {
         this.checkInventorySelectionChange();
         this.player.update();
         this.enemyWaveController.update();
+        this.environment.update();
         this.bullets.forEach((bullet) => {
             bullet.update();
         });
     }
 
     checkPlayerMovement() {
+        if (!this.player.can_use_action)
+            return;
+
         if (this.inputController.pressed_a)
             this.player.moveLeft();
 
@@ -115,7 +129,8 @@ class Scene extends Phaser.Scene {
             this.timer--;
             if (this.timer <= 0)
                 this.timer = 10;
-            this.timerTick();
+            if (!this.game_over)
+                this.timerTick();
         }, 1000);
     }
 

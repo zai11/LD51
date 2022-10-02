@@ -1,10 +1,29 @@
 class Tree {
-    constructor(context, environment, spr_tree) {
+    constructor(context, environment, sprite) {
         this.context = context;
         this.environment = environment;
-        this.spr_tree = spr_tree;
+        this.sprite = sprite;
 
-        spr_tree.setScale(3);
-        spr_tree.depth = spr_tree.y;
+        sprite.setScale(3);
+        sprite.depth = sprite.y;
+        this.selected = false;
+    }
+
+    setSelected(selected = true) {
+        if (this.chopped)
+            return;
+        this.selected = selected;
+        if (this.selected)
+            this.sprite.setTexture('tree_selected');
+        else
+            this.sprite.setTexture('tree');
+    }
+
+    chop(chopped = true) {
+        this.chopped = chopped;
+        if (this.chopped)
+            this.sprite.setTexture('tree_chopped');
+        else 
+            this.setSelected(this.selected);
     }
 }
